@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Blink : MonoBehaviour {
 
-	public float distance = 5.0f;
+	public float distance;
 	public ParticleSystem blinFX;
 
 	public float coolDown = 3;
     public float coolDownTimer;
-	
+    bool godMode;
+
+    public Image imageCooldown;
+    public float imageCD;
+    public bool dashed = false;
 	// Update is called once per frame
 	void Update ()
 	{
@@ -27,12 +31,30 @@ public class Blink : MonoBehaviour {
 		{
 			BlinkF();
 			blinFX.Play();
-
+            dashed = true;
             coolDownTimer = coolDown;
         }
-	}
 
-	public void BlinkF()
+        if(dashed)
+        {
+            imageCooldown.fillAmount += 1 / imageCD * Time.deltaTime;
+
+            if(imageCooldown.fillAmount >= 1)
+            {
+                imageCooldown.fillAmount = 0;
+                dashed = false;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            godMode = !godMode;
+            GodMode();
+        }
+
+    }
+
+    public void BlinkF()
 	{
 		RaycastHit hit;
 		Vector3 destination = transform.position + transform.forward * distance;
@@ -49,4 +71,18 @@ public class Blink : MonoBehaviour {
 			transform.position = destination;
 		}
 	}
+
+    void GodMode()
+    {
+        if (godMode == true)
+        {
+            coolDown = 0;
+
+        }
+
+        if (godMode == false)
+        {
+            coolDown = 3;
+        }
+    }
 }

@@ -4,32 +4,18 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour {
 
-	public Transform player;
-    public float playerDistance;
-
-    public float playerLook;
-    //public float playerChase;
-
-    public float rotationSmooth;
-
-   /* public float chaseStartRange;
-    public float moveSpeed;
-    */
-	public GameObject enemySandBullet;
+	
+    public GameObject enemySandBullet;
 	public float shootSpeed;
     
 
 	List<GameObject> enemyBulletPool;
 
-	void Awake () 
-	{
-		 
-	}
 
 	void Start ()
     {
         enemyBulletPool = new List<GameObject>();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 3; i++)
         {
             GameObject projectile = (GameObject)Instantiate(enemySandBullet);
             projectile.SetActive(false);
@@ -40,39 +26,28 @@ public class EnemyAttack : MonoBehaviour {
 	
 	void Update () 
 	{
-        playerDistance = Vector3.Distance(player.position, transform.position);
+        
 
-        if(playerDistance < playerLook)
-        {
-            lookAtPlayer();
-        }
-
-      /*  if(playerDistance < playerChase)
-        {
-            Chase();
-        }
-        */
 	}
 
-
-    void lookAtPlayer ()
+    void OnTriggerEnter (Collider other)
     {
-        Quaternion rotation = Quaternion.LookRotation(player.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSmooth);
+        if (other.gameObject.tag == "Player")
+        {
+            StartCoroutine("Shooting");
+        }
     }
 
-
-   /* void Chase()
+    void OnTriggerExit(Collider other)
     {
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-        Debug.Log("stalker");
+        if (other.gameObject.tag == "Player")
+        {
+            StopCoroutine("Shooting");
+        }
     }
-    */
 
-	
-
-
-	/* IEnumerator Shooting()
+  
+	IEnumerator Shooting()
 	{
 		while (true)
 		{
@@ -90,7 +65,10 @@ public class EnemyAttack : MonoBehaviour {
                     break;
                    }
             }
+            yield return new WaitForSeconds(2);
+           
 		}
+        
 	}
-    */
+     
 }

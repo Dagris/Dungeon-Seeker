@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4305644292687564}
   - component: {fileID: 198886909022222224}
   - component: {fileID: 199841355499357606}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SparkTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,10 @@ GameObject:
   - component: {fileID: 198708796413089954}
   - component: {fileID: 199021345000934276}
   - component: {fileID: 108485635579623396}
-  m_Layer: 0
+  - component: {fileID: 54301880845098900}
+  - component: {fileID: 114234318367343736}
+  - component: {fileID: 135793262773481130}
+  m_Layer: 8
   m_Name: EnemyBasicBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +59,7 @@ GameObject:
   - component: {fileID: 4711352329005116}
   - component: {fileID: 198590547754128698}
   - component: {fileID: 199422690128543030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FireGlowTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +76,7 @@ GameObject:
   - component: {fileID: 4500396490453824}
   - component: {fileID: 198619218382402904}
   - component: {fileID: 199919555529657246}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SmokeTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +93,7 @@ GameObject:
   - component: {fileID: 4521196544206414}
   - component: {fileID: 198003551350331328}
   - component: {fileID: 199322105652502544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FireTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +159,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1449660407576774}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.742453, y: 3.14, z: -1.7726268}
+  m_LocalPosition: {x: -4.076763, y: 8.75, z: -2.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4500396490453824}
@@ -166,6 +169,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54301880845098900
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449660407576774}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
 --- !u!108 &108485635579623396
 Light:
   m_ObjectHideFlags: 1
@@ -203,6 +221,30 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114234318367343736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449660407576774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df5cda764256cd44a77a140329b40c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHit: {fileID: 0}
+--- !u!135 &135793262773481130
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449660407576774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.50562644
+  m_Center: {x: 0, y: 0, z: -0.5056164}
 --- !u!198 &198003551350331328
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -13868,7 +13910,7 @@ ParticleSystem:
         m_RotationOrder: 0
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 2
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -13921,7 +13963,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 2
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -13974,7 +14016,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 0
       maxCurve:
@@ -14027,7 +14069,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 0
       maxCurve:
