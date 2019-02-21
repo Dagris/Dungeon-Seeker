@@ -14,7 +14,9 @@ public class SettingsMenu : MonoBehaviour {
 
     Resolution[] resolutions;
 
-   
+    public Button back;
+
+
     void Start()
     {
         SetPitchNormal();
@@ -43,6 +45,16 @@ public class SettingsMenu : MonoBehaviour {
         
     }
 
+    public void Update()
+    {
+        if (Input.GetButtonDown("B"))
+        {
+            Debug.Log("NO FUNKA");
+            back.onClick.Invoke();
+
+        }
+    }
+
     public void SetResolution ( int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
@@ -53,6 +65,12 @@ public class SettingsMenu : MonoBehaviour {
     {
         audioMixer.SetFloat("volume", volume);
     }
+
+    public void SetGamma()
+    {
+
+    }
+
 
     public void SetQuality (int qualityIndex)
     {

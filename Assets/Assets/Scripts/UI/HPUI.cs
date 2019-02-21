@@ -74,7 +74,7 @@ public class HPUI : MonoBehaviour {
 
     public void UpdateLife()
     {
-        PlayerController playerScript = playerHP.GetComponent<PlayerController>();
+        PlayerStats playerScript = playerHP.GetComponent<PlayerStats>();
         numOfLeaves = playerScript.HP;
 
 

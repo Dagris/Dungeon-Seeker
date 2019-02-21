@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class PauseMenu : MonoBehaviour {
     public GameObject pauseAudio;
 
     public GameObject pasueMenuUI;
+
+    public Button resume;
 
    
 
@@ -22,7 +25,7 @@ public class PauseMenu : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-		if (Input.GetKeyDown(KeyCode.P))
+		if (Input.GetButtonDown("P"))
         {
 
             if(GameIsPaused)
@@ -35,11 +38,16 @@ public class PauseMenu : MonoBehaviour {
                 Pause();
             }
 
+            
         }
-	}
 
-   
-
+        if (Input.GetButtonDown("B"))
+        {
+            Debug.Log("NO FUNKA");
+            resume.onClick.Invoke();
+        }
+    }
+    
     public void Resume ()
     {
         pasueMenuUI.SetActive(false);

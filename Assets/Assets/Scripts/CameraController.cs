@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     public bool lockCursor;
-	public float MouseSensitivity = 10;
+	public float MouseSensitivity /*= 10*/;
 	public Transform target;
 	public float PlayerDistance = 10;
     public Vector2 CameraLimit = new Vector2 (-40, 85);

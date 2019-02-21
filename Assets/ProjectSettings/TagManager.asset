@@ -8,6 +8,9 @@ TagManager:
   - Portal
   - AudioManager
   - PlayerBullet
+  - DeathZone
+  - PTarget
+  - DeathZonePre
   layers:
   - Default
   - TransparentFX
@@ -19,9 +22,9 @@ TagManager:
   - 
   - Bullet
   - Player
-  - 
-  - 
-  - 
+  - DamageColliders
+  - TriggerColliders
+  - PostProcessing
   - 
   - 
   - 

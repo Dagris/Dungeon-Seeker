@@ -12,7 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: fc33053fae503924bbcdf01643ab5410
   - enabled: 1
-    path: Assets/Scenes/Gameplay.unity
+    path: Assets/Scenes/PreLevel.unity
+    guid: cda43033e64b4aa4697a6f1f1bcaa35a
+  - enabled: 1
+    path: Assets/Scenes/DesertStage.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/PowerUp.unity
