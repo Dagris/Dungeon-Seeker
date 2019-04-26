@@ -11,6 +11,8 @@ public class EnemyStats : MonoBehaviour {
     float specialAttackDmg = 3;
     bool godMode;
     public GameObject portalOn;
+    public Animator abaonAnim;
+    public ParticleSystem deadXplosion;
 
     [Header("Health")]
     public float enemyHP;
@@ -22,17 +24,17 @@ public class EnemyStats : MonoBehaviour {
 
     void Start () 
 	{
-		enemyHP = 10;
+		//enemyHP = 10;
         enemy = this.transform;
     }
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(enemyHP <= 0)
+		/*if(enemyHP <= 0)
 		{
 			enemyDead();
-		}
+		}*/
         
         if (Input.GetKeyDown(KeyCode.F10))
         {
@@ -59,27 +61,27 @@ public class EnemyStats : MonoBehaviour {
     {
         enemyHP = enemyHP - gunDmg;
 		Debug.Log("dmg");
+
+        if(Dying)
+        {
+            abaonAnim.SetTrigger("Dead");
+        }
         
     }
 
-    public void enemyShotGunDamage()
-    {
-        enemyHP = enemyHP - shotgunDmg;
-        Debug.Log("dmg");
-       
-    }
-
-    public void enemySpecialDamage()
-    {
-        enemyHP = enemyHP - specialAttackDmg;
-        Debug.Log("dmg");
-
-    }
-
-    void enemyDead()
+    public IEnumerator enemyDead()
 	{
         isDead = true;
-		Destroy(gameObject);
+        
+        deadXplosion.Play();
+        yield return new WaitForSeconds(0.2f);
+        deadXplosion.Play();
+        yield return new WaitForSeconds(0.2f);
+        deadXplosion.Play();
+        yield return new WaitForSeconds(0.2f);
+        deadXplosion.Play();
+        yield return new WaitForSeconds(0.1f);
+        Destroy(gameObject);
         portalOn.gameObject.SetActive(true);
         
         Debug.Log("sa matao paco");
@@ -110,4 +112,11 @@ public class EnemyStats : MonoBehaviour {
        
     }
 
+    public bool Dying
+    {
+        get
+       {
+            return enemyHP == 0;
+       }
+    }
 }

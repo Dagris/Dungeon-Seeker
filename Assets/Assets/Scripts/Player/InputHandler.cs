@@ -64,11 +64,11 @@ namespace State
                 camManager.lockonTarget = states.lockOnTarget;
                 states.lockOnTransform = camManager.lockonTransform;
                 camManager.lockon = states.lockOn;
+                
             }
 
             if (Input.GetButtonDown("A"))
             {
-                Debug.Log("Se supone que salta");
                 states.Jump();
             }
         }

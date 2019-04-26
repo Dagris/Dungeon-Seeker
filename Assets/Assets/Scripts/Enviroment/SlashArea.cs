@@ -7,6 +7,8 @@ public class SlashArea : MonoBehaviour
     public GameObject enemySandBullet;
     public float shootSpeed;
     public float waitFor;
+    public ParticleSystem warning;
+    public AudioSource prev;
 
     List<GameObject> enemyBulletPool;
 
@@ -54,11 +56,15 @@ public class SlashArea : MonoBehaviour
             {
                 if (!enemyBulletPool[i].activeInHierarchy)
                 {
+                    warning.Play();
+                    prev.pitch = (Random.Range(0.8f, 1.8f));
+                    prev.Play();
+                    yield return new WaitForSeconds(0.5f);
                     enemyBulletPool[i].transform.position = transform.position;
                     enemyBulletPool[i].transform.rotation = transform.rotation;
                     enemyBulletPool[i].SetActive(true);
 
-
+                    
                     Rigidbody enemyrb = enemyBulletPool[i].GetComponent<Rigidbody>();
                     enemyrb.velocity = transform.forward * shootSpeed;
                     yield return new WaitForSeconds(1);

@@ -32,7 +32,7 @@ public class ShotgunBullet : MonoBehaviour {
         
         if(collision.gameObject.tag == "Enemy")
         {
-            enemyBullet.GetComponent<EnemyStats>().enemyShotGunDamage();
+            //enemyBullet.GetComponent<EnemyStats>().enemyShotGunDamage();
             Debug.Log("hit");
             Invoke("hideBullet", 0.05f);
 

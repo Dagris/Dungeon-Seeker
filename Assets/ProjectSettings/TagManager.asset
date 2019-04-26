@@ -11,6 +11,8 @@ TagManager:
   - DeathZone
   - PTarget
   - DeathZonePre
+  - Wall
+  - Respawner
   layers:
   - Default
   - TransparentFX

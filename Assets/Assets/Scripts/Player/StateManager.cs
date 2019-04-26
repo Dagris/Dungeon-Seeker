@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 namespace State
 {
@@ -36,11 +38,16 @@ namespace State
         public EnemyTarget lockOnTarget;
         public Transform lockOnTransform;
         public float idlePlus;
+        public bool god = false;
+        public Image targetImg;
+        public Camera cam;
 
         [HideInInspector]
         public Animator anim;
         [HideInInspector]
         public Rigidbody rigid;
+        [HideInInspector]
+        public Collider controllerCollider;
         [HideInInspector]
         public float delta;
         [HideInInspector]
@@ -59,6 +66,7 @@ namespace State
             ignoreLayers = ~(1 << 11);
             anim = gameObject.GetComponentInChildren<Animator>();
             anim.SetBool("onGround", true);
+            //targetImg.enabled = false;
         }
         
         void SetUpAnimator()
@@ -94,12 +102,32 @@ namespace State
                 idlePlus = 0;
             }
 
-            if(idlePlus >= 795)
+            if(idlePlus >= 770)
             {
                 idlePlus = 0;
             }
 
+            GodMode();
+            if(Input.GetKeyDown(KeyCode.F10))
+            {
+                god = !god;
+            }
+
             anim.SetFloat("idle+", idlePlus);
+
+
+            if (lockOn == false)
+            {
+                targetImg.enabled = false;
+            }
+
+            else
+            {
+                targetImg.enabled = true;
+                TargetImg();
+            }
+
+            //TargetImg();
         }
 
         public void FixedTick(float d) //movimiento
@@ -110,12 +138,19 @@ namespace State
             
             float targetSpeed = moveSpeed;
 
-            if(onGround)
+            //rigid.velocity = moveDir * (targetSpeed * moveAmount);
+
+           if(onGround)
             {
                 rigid.velocity = moveDir * (targetSpeed * moveAmount);
             }
-            
 
+           /* else
+            {
+                rigid.velocity = moveDir; //* (targetSpeed * moveAmount);
+            }
+            
+            */
             Vector3 targetDir = (lockOn == false) ? moveDir : (lockOnTransform != null) ? lockOnTransform.transform.position - transform.position: moveDir;
             targetDir.y = 0;
             if (targetDir == Vector3.zero)
@@ -244,6 +279,33 @@ namespace State
 
             prevGround = r;
             return r;
+        }
+
+        void GodMode()
+        {
+            if(god)
+            {
+                DoubleJumps = 10;
+            }
+
+            else
+            {
+                DoubleJumps = 1;
+            }
+        }
+
+        public void TargetImg()
+        {
+            Vector3 fixedPos = new Vector3 (lockOnTarget.transform.position.x, lockOnTarget.transform.position.y+2, lockOnTarget.transform.position.z);
+            targetImg.gameObject.transform.position = cam.WorldToScreenPoint(fixedPos);
+
+            targetImg.gameObject.transform.Rotate(new Vector3(0, 0, -1));
+        }
+
+        public void FinishIdle()
+        {
+
+            anim.SetTrigger("idled");
         }
 
     }

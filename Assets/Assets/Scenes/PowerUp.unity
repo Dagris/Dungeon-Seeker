@@ -6199,7 +6199,7 @@ MonoBehaviour:
   audioMixerGroup: {fileID: 24300002, guid: 9eab23466d843e84fbdfe290bd528ab9, type: 2}
   sounds:
   - name: Upgrade Theme
-    clip: {fileID: 8300000, guid: 6d976ff34af5df64ea637f30d9916337, type: 3}
+    clip: {fileID: 8300000, guid: c489d4348e01443499745ca8f2261534, type: 3}
     volume: 0.7
     pitch: 1
     loop: 1

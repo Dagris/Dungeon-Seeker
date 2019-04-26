@@ -25,6 +25,8 @@ public class AbaonBehaviour : MonoBehaviour
     Vector3 spikePos;
     //public float spikeCoolDown = 10;
     //float coolDownTimer;
+    EnemyStats abaonDead;
+    EnemyStats deathBridge;
 
     [Header("Swarm")]
     public GameObject swarm;
@@ -34,6 +36,7 @@ public class AbaonBehaviour : MonoBehaviour
     [Header("Animations")]
     public Animator abaonAnim;
     public int abaonLogic;
+
     //public bool hasAttacked = false;
     //public float CoolDown = 2;
     //float coolDownTimer;
@@ -42,7 +45,7 @@ public class AbaonBehaviour : MonoBehaviour
     {
         //Slash Vertical
         enemyBulletPool = new List<GameObject>();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 10; i++)
         {
             GameObject projectile = (GameObject)Instantiate(enemySandBullet);
             projectile.SetActive(false);
@@ -70,6 +73,9 @@ public class AbaonBehaviour : MonoBehaviour
             swarmP.SetActive(false);
             betleetPool.Add(swarmP);
         }
+
+        deathBridge = GetComponentInParent<EnemyStats>();
+        abaonDead = GetComponentInParent<EnemyStats>();
 
         Invoke("AbaonLogicAtks", 1);
     }
@@ -100,7 +106,7 @@ public class AbaonBehaviour : MonoBehaviour
         //SWARM
 
         //TRIGGER TEST
-        if(Input.GetKeyDown(KeyCode.V))
+       /* if(Input.GetKeyDown(KeyCode.V))
         {
             abaonAnim.SetTrigger("VSlash");
         }
@@ -118,7 +124,7 @@ public class AbaonBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             abaonAnim.SetTrigger("Spike");
-        }
+        }*/
         //RANDOM ATTACKS OF ABAON
 
         //Invoke("AbaonLogicAtks", 2);
@@ -145,6 +151,8 @@ public class AbaonBehaviour : MonoBehaviour
      
     }
 
+    
+
     public void SlashV()
     {
         Debug.Log("SLASH VERTICAL DONE");
@@ -156,7 +164,24 @@ public class AbaonBehaviour : MonoBehaviour
                 enemyBulletPool[i].transform.position = v1.transform.position;
                 enemyBulletPool[i].transform.rotation = transform.rotation;
                 enemyBulletPool[i].SetActive(true);
+                
+                Rigidbody enemyrb = enemyBulletPool[i].GetComponent<Rigidbody>();
+                enemyrb.velocity = transform.forward * shootSpeed;
 
+
+                break;
+            }
+
+
+        }
+
+        for (int i = 0; i < enemyBulletPool.Count; i++)
+        {
+            if (!enemyBulletPool[i].activeInHierarchy)
+            {
+                enemyBulletPool[i].transform.position = v2.transform.position;
+                enemyBulletPool[i].transform.rotation = transform.rotation;
+                enemyBulletPool[i].SetActive(true);
 
                 Rigidbody enemyrb = enemyBulletPool[i].GetComponent<Rigidbody>();
                 enemyrb.velocity = transform.forward * shootSpeed;
@@ -165,9 +190,28 @@ public class AbaonBehaviour : MonoBehaviour
                 break;
             }
 
+
         }
 
-       
+        for (int i = 0; i < enemyBulletPool.Count; i++)
+        {
+            if (!enemyBulletPool[i].activeInHierarchy)
+            {
+                enemyBulletPool[i].transform.position = v3.transform.position;
+                enemyBulletPool[i].transform.rotation = transform.rotation;
+                enemyBulletPool[i].SetActive(true);
+
+                Rigidbody enemyrb = enemyBulletPool[i].GetComponent<Rigidbody>();
+                enemyrb.velocity = transform.forward * shootSpeed;
+
+
+                break;
+            }
+
+
+        }
+
+
     }
 
     public void SlashH()
@@ -226,33 +270,42 @@ public class AbaonBehaviour : MonoBehaviour
 
     void AbaonLogicAtks()
     {
-        abaonLogic = Random.Range(1, 10);
-
-        if (abaonLogic == 1 || abaonLogic == 2 || abaonLogic == 3)
+        if(abaonDead.isDead == false)
         {
-            abaonAnim.SetTrigger("VSlash");
+            abaonLogic = Random.Range(1, 10);
 
+            if (abaonLogic == 1 || abaonLogic == 2 || abaonLogic == 3)
+            {
+                abaonAnim.SetTrigger("VSlash");
+
+            }
+
+            if (abaonLogic == 4 || abaonLogic == 5)
+            {
+                abaonAnim.SetTrigger("HSlash");
+
+            }
+
+            if (abaonLogic == 6 || abaonLogic == 7)
+            {
+                abaonAnim.SetTrigger("Swarm");
+
+            }
+
+            if (abaonLogic == 8 || abaonLogic == 9 || abaonLogic == 10)
+            {
+                abaonAnim.SetTrigger("Spike");
+
+            }
+
+            Invoke("AbaonLogicAtks", 3);
         }
+        
+    }
 
-        if (abaonLogic == 4 || abaonLogic == 5)
-        {
-            abaonAnim.SetTrigger("HSlash");
-
-        }
-
-        if (abaonLogic == 6 || abaonLogic == 7)
-        {
-            abaonAnim.SetTrigger("Swarm");
-
-        }
-
-        if (abaonLogic == 8 || abaonLogic == 9 || abaonLogic == 10)
-        {
-            abaonAnim.SetTrigger("Spike");
-
-        }
-
-        Invoke("AbaonLogicAtks", 2);
+    public void DeathAnimBrige()
+    {
+        StartCoroutine(deathBridge.GetComponent<EnemyStats>().enemyDead());
     }
 }
 

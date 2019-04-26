@@ -31,11 +31,13 @@ public class PauseMenu : MonoBehaviour {
             if(GameIsPaused)
             {
                 Resume();
+                Debug.Log("resumed");
             }
 
             else
             {
                 Pause();
+                Debug.Log("paused");
             }
 
             
@@ -43,7 +45,7 @@ public class PauseMenu : MonoBehaviour {
 
         if (Input.GetButtonDown("B"))
         {
-            Debug.Log("NO FUNKA");
+
             resume.onClick.Invoke();
         }
     }

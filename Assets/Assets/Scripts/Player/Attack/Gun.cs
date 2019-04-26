@@ -10,6 +10,9 @@ public class Gun : MonoBehaviour {
     public float fireRate = 0.5f;
 
     public AudioSource shotFx;
+    public Animator atackanim;
+
+    public ParticleSystem flamefx;
     
 
     private float nextTimeToFire = 0f;
@@ -40,6 +43,7 @@ public class Gun : MonoBehaviour {
         {
             nextTimeToFire = Time.time + fireRate;
             Fire();
+            
         }
 
         
@@ -49,6 +53,7 @@ public class Gun : MonoBehaviour {
     {
         shotFx.pitch = (Random.Range(0.8f, 1.8f));
         shotFx.Play();
+        flamefx.Play();
        
         for (int i = 0; i < bulletPool.Count; i++)
         {

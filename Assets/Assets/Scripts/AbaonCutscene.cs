@@ -5,12 +5,14 @@ using UnityEngine;
 public class AbaonCutscene : MonoBehaviour
 {
     public GameObject CamGame;
-    public GameObject Cam1;
     public GameObject Cam2;
+    public GameObject endCam;
+    public GameObject xq1;
+    public GameObject xq2;
+    public GameObject xq;
     public GameObject AbaonBoss;
     public GameObject AbaonFake;
     public GameObject UI;
-    public GameObject Tornadofx;
     public GameObject Audio;
    // public ParticleSystem trfx;
 
@@ -18,13 +20,15 @@ public class AbaonCutscene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cam1.SetActive(true);
-        Cam2.SetActive(false);
+        Cam2.SetActive(true);
+        endCam.SetActive(false);
+        xq1.SetActive(false);
+        xq2.SetActive(false);
+        xq.gameObject.SetActive(false);
         //CamGame.SetActive(false);
         AbaonBoss.SetActive(false);
         AbaonFake.SetActive(false);
         UI.SetActive(false);
-        Tornadofx.SetActive(false);
         Audio.SetActive(false);
         StartCoroutine("Cinematic");
     }
@@ -32,14 +36,10 @@ public class AbaonCutscene : MonoBehaviour
     // Update is called once per frame
     IEnumerator Cinematic ()
     {
-        yield return new WaitForSeconds(2.2f);
-        Cam2.SetActive(true);
-        Cam1.SetActive(false);
-        yield return new WaitForSeconds(1);
-        Tornadofx.SetActive(true);
-        //trfx.Play();
-        yield return new WaitForSeconds(1);
+        
+        yield return new WaitForSeconds(2.5f);
         AbaonFake.SetActive(true);
+        yield return new WaitForSeconds(3);
         Audio.SetActive(true);
         yield return new WaitForSeconds(1);
         UI.SetActive(true);

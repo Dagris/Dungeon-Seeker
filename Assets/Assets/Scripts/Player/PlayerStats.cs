@@ -23,6 +23,8 @@ public class PlayerStats : MonoBehaviour {
     public int HP = 5;
     public bool invulnerable = false;
     public Animator HPAnimator;
+    public Animator InkAnim;
+    public Renderer rend;
     /*[Header("Lock System")]
     public bool isTargeting = false;
     public Transform enemyPos;
@@ -97,11 +99,11 @@ public class PlayerStats : MonoBehaviour {
         }
 
         */
-        if (HP <= 0)
+      /*  if (HP <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            
         }
-
+        */
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             gun.gameObject.SetActive(true);
@@ -201,50 +203,65 @@ public class PlayerStats : MonoBehaviour {
         {
             
             HP --;
+            rend.material.SetColor("_Color", Color.red);
+            yield return new WaitForSeconds(0.15f);
+            rend.material.SetColor("_Color", Color.white);
             /* invulnerable = true;
              yield return new WaitForSeconds(1);
              invulnerable = false;
              */
             HPAnimator.SetTrigger("Damaged");
         }
+
+        if(IsDead)
+        {
+            InkAnim.SetTrigger("dead");
+        }
         
         yield return null;
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "DeathZone")
+        Debug.Log("que te mueras");
+        if (other.gameObject.tag == "DeathZone")
         {
-            HP = 0;
+            //HP = 0;
         }
 
-        if (collision.gameObject.tag == "DeathZonePre")
+        if (other.gameObject.tag == "Respawner")
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(4);
+        }
+
+        if (other.gameObject.tag == "DeathZonePre")
+        {
+            //SceneManager.LoadScene(2);
+            InkAnim.SetTrigger("sinked");
         }
     }
 
-    
-   /*  void LookAt()
-    {
-        if(enemyPos != null)
-        {
-            distanceBetweenTarget = Vector3.Distance(transform.position, enemyPos.position);
-        }
 
-        if(isTargeting)
-        {
-            Debug.Log("targeting");
-           Vector3 rotation = new Vector3(enemyPos.position.x, transform.position.y, enemyPos.transform.position.z);
-       
-           transform.LookAt(rotation);
+    /*  void LookAt()
+     {
+         if(enemyPos != null)
+         {
+             distanceBetweenTarget = Vector3.Distance(transform.position, enemyPos.position);
+         }
 
-           //transform.RotateAround(target.transform.position, Vector3.up, Vector3.Distance(target.transform.position, targetfound.transform.position));
-        }
-        
-    }
-    */
-    
+         if(isTargeting)
+         {
+             Debug.Log("targeting");
+            Vector3 rotation = new Vector3(enemyPos.position.x, transform.position.y, enemyPos.transform.position.z);
+
+            transform.LookAt(rotation);
+
+            //transform.RotateAround(target.transform.position, Vector3.up, Vector3.Distance(target.transform.position, targetfound.transform.position));
+         }
+
+     }
+     */
+
     void GodMode()
     {
         if(godMode == true)
@@ -260,6 +277,19 @@ public class PlayerStats : MonoBehaviour {
             //walkSpeed = 6;
             invulnerable = false;
             //jumpHeight = 2;
+        }
+    }
+
+     public void TryToDie()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public bool IsDead
+    {
+        get
+        {
+            return HP == 0;
         }
     }
 

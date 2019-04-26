@@ -32,7 +32,7 @@ public class SpecialBullet : MonoBehaviour {
 
         if (collision.gameObject.tag == "Enemy")
         {
-            enemyBullet.GetComponent<EnemyStats>().enemySpecialDamage();
+            //enemyBullet.GetComponent<EnemyStats>().enemySpecialDamage();
             Debug.Log("hitSPECIAL");
             Invoke("hideBullet", 0.05f);
 

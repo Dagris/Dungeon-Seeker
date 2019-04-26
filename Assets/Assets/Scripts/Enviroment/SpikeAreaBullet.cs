@@ -6,18 +6,24 @@ public class SpikeAreaBullet : MonoBehaviour
 {
     public GameObject playerHit;
     Collider col;
+    public ParticleSystem bulletFX;
+    public ParticleSystem bulletColFX;
+    public ParticleSystem sandTrail;
 
     void Start()
     {
         playerHit = GameObject.FindGameObjectWithTag("Player");
-        col = GetComponent<Collider>();
+        col = gameObject.GetComponent<Collider>();
+        
        // col.enabled = false;
     }
     private void OnEnable()
     {
-        //Invoke("EnableCol", 0.2f);
+        
+        bulletFX.gameObject.SetActive(true);
+        Invoke("EnableCol", 0.2f);
         transform.GetComponent<Rigidbody>().WakeUp();
-        Invoke("hideBullet", 0.5f);
+        Invoke("hideBullet", 4f);
     }
 
     void hideBullet()
@@ -43,8 +49,21 @@ public class SpikeAreaBullet : MonoBehaviour
         {
             StartCoroutine(playerHit.GetComponent<PlayerStats>().Damage());
             Debug.Log("tas jodio");
-            Invoke("hideBullet", 0.1f);
+            bulletFX.gameObject.SetActive(false);
+            col.enabled = false;
+            sandTrail.Stop();
+            bulletColFX.Play();
+            Invoke("hideBullet", 1.5f);
 
+        }
+
+        else if(collision.gameObject.tag == "Wall")
+        {
+            bulletFX.gameObject.SetActive(false);
+            col.enabled = false;
+            sandTrail.Stop();
+            bulletColFX.Play();
+            Invoke("hideBullet", 1.5f);
         }
 
 

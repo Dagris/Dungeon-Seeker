@@ -14,8 +14,8 @@ public class Betlee : MonoBehaviour
 
     void Start()
     {
-        PlayerTarget = GameObject.FindGameObjectWithTag("PTarget");
-        Player = GameObject.FindGameObjectWithTag("Player");
+       // PlayerTarget = GameObject.FindGameObjectWithTag("PlayerTarget");
+        //Player = GameObject.FindGameObjectWithTag("Player");
         playerPos = PlayerTarget.transform;
     }
     void Update()
@@ -56,7 +56,7 @@ public class Betlee : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("PLAYER HITTED");
-            //blood.Play();
+            blood.Play();
             StartCoroutine(Player.GetComponent<PlayerStats>().Damage());
             //Debug.Log("betlee");
             Invoke("hideBetlee", 0.1f);
@@ -65,7 +65,7 @@ public class Betlee : MonoBehaviour
 
         if (collision.gameObject.tag == "PlayerBullet")
         {
-            //blood.Play();
+            blood.Play();
 
             Debug.Log("betlee");
             Invoke("hideBetlee", 0.1f);

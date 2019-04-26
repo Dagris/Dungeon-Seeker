@@ -41,7 +41,7 @@ public class EnemyBasicBullet : MonoBehaviour {
 
         if (collision.gameObject.tag == "Player")
         {
-           StartCoroutine (playerHit.GetComponent<PlayerStats>().Damage());
+            StartCoroutine(playerHit.GetComponent<PlayerStats>().Damage());
             Debug.Log("tas jodio");
             Invoke("hideBullet", 0.1f);
 
